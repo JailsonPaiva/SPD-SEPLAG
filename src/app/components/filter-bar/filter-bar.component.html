@@ -1,0 +1,61 @@
+<div class="bg-white shadow-md rounded-lg p-4 mb-6 flex flex-col gap-4">
+  <!-- Formulário de Filtros -->
+  <form (ngSubmit)="handleFilter()" class="flex flex-col gap-4">
+    <!-- Primeira linha: Campo de busca e seleção de sexo -->
+    <div class="flex flex-col sm:flex-row justify-between gap-4">
+      <input
+        type="text"
+        [(ngModel)]="nome"
+        name="nome"
+        placeholder="Buscar por nome"
+        class="border border-gray-300 rounded-md px-4 py-2 w-full sm:w-[74.5%]"
+      />
+
+      <select
+        [(ngModel)]="sexo"
+        name="sexo"
+        class="border border-gray-300 rounded-md px-4 py-2 w-full sm:w-[24%]"
+      >
+        <option value="">Sexo</option>
+        <option value="MASCULINO">Masculino</option>
+        <option value="FEMININO">Feminino</option>
+      </select>
+    </div>
+
+    <!-- Segunda linha: Filtros adicionais -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <input
+        type="number"
+        [(ngModel)]="faixaIdadeInicial"
+        name="faixaIdadeInicial"
+        placeholder="Idade inicial"
+        class="border border-gray-300 rounded-md px-4 py-2 w-full"
+      />
+
+      <input
+        type="number"
+        [(ngModel)]="faixaIdadeFinal"
+        name="faixaIdadeFinal"
+        placeholder="Idade final"
+        class="border border-gray-300 rounded-md px-4 py-2 w-full"
+      />
+
+      <select
+        [(ngModel)]="status"
+        name="status"
+        class="border border-gray-300 rounded-md px-4 py-2 w-full"
+      >
+        <option value="">Status</option>
+        <option value="DESAPARECIDO">Desaparecido</option>
+        <option value="LOCALIZADO">Localizado</option>
+      </select>
+
+      <button
+        type="submit"
+        class="bg-blue-500 text-white px-4 py-2 rounded-md w-full"
+      >
+        Buscar
+      </button>
+    </div>
+  </form>
+</div>
