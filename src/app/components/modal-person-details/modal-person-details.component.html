@@ -9,7 +9,7 @@
       <mat-icon>close</mat-icon>
     </button>
 
-    <h2 class="text-red-500 text-center mb-4">
+    <h2 class="text-3xl font-bold text-red-500 text-center mb-4">
       Desaparecido há {{ missingDays(data?.ultimaOcorrencia.dtDesaparecimento) }} dias
     </h2>
 
@@ -28,7 +28,7 @@
         {{ data?.nome }} • {{ data?.idade }} anos
       </h2>
 
-      <div class="space-y-3 text-gray-600 dark:text-gray-300">
+      <div class="space-y-3 text-gray-600 dark:text-gray-500">
         <p><strong>Gênero:</strong> {{ data?.sexo }}</p>
 
         <p><strong>Último local visto:</strong> {{ data?.ultimaOcorrencia.localDesaparecimentoConcat }}</p>
@@ -44,12 +44,11 @@
         </p>
       </div>
 
-      <!-- Botões -->
       <div class="flex flex-col items-center justify-center gap-4 mt-8">
-        <div class="flex gap-4 justify-center">
+        <div class="w-full flex gap-4 justify-center">
           <!-- Botão para Enviar Informações -->
           <button
-            class="w-[70%] bg-red-500 hover:bg-red-600 text-white h-[45px] rounded"
+            class="w-[70%] bg-red-500 hover:bg-red-600 text-white h-[45px] cursor-pointer rounded transition-colors duration-300"
             (click)="sendInformation()"
           >
             Enviar informações sobre a vítima
@@ -58,7 +57,7 @@
           <!-- Botão para Baixar Cartaz -->
           <button
             [disabled]="!data?.urlPoste"
-            class="w-[30%] bg-gray-500 hover:bg-gray-600 text-white h-[45px] rounded"
+            class="w-[30%] bg-gray-500 hover:bg-gray-600 text-white h-[45px] cursor-pointer rounded transition-colors duration-300"
             (click)="downloadPoster()"
             [ngClass]="{ 'opacity-50 cursor-not-allowed': !data?.urlPoste }"
           >
@@ -66,19 +65,17 @@
           </button>
         </div>
 
-        <div class="flex gap-4 justify-center">
-          <!-- Botão para WhatsApp -->
+        <div class="w-full flex gap-4 justify-center">
           <button
-            class="flex-1 max-w-[180px] h-[40px] border border-gray-300 rounded"
+            class="flex items-center justify-center w-[180px] h-[40px] border border-gray-300 cursor-pointer rounded"
             (click)="shareOnWhatsApp()"
           >
             <mat-icon class="mr-2">chat</mat-icon>
             WhatsApp
           </button>
 
-          <!-- Botão para Instagram -->
           <button
-            class="flex-1 max-w-[180px] h-[40px] border border-gray-300 rounded"
+            class="flex items-center justify-center w-[180px] h-[40px]] border border-gray-300 cursor-pointer rounded"
             (click)="shareOnInstagram()"
           >
             <mat-icon class="mr-2">camera</mat-icon>
