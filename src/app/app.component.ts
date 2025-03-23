@@ -7,6 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { missingPeople } from './app.interface';
+import { ModalPersonDetails } from './components/modal-person-details/modal-person-details.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +20,9 @@ import { missingPeople } from './app.interface';
     MissingPersonCardComponent,
     FilterBarComponent,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ModalPersonDetails, // Ensure ModalPersonDetails is imported
+    MatDialogModule, // Certifique-se de importar o MatDialogModule
   ],
   templateUrl: './app.component.html',
 })
@@ -44,7 +49,11 @@ export class AppComponent implements OnInit {
   currentPage = 0;
   recordsPerPage = 12;
 
-  constructor(private http: HttpClient) { }
+  selectedPerson: any = null; // Pessoa selecionada para exibir no modal
+  isModalOpen = false; // Controle de exibição do modal
+
+
+  constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.fetchData();
@@ -110,17 +119,36 @@ export class AppComponent implements OnInit {
 
   formatDate(dateString?: string): string {
     if (!dateString) return '';
-    const cleanDateString = dateString.split('T')[0]; 
+    const cleanDateString = dateString.split('T')[0];
     const [year, month, day] = cleanDateString.split('-').map(Number);
-  
+
     if (isNaN(year) || isNaN(month) || isNaN(day)) {
       console.error('Data inválida:', dateString);
       return '';
     }
-  
+
     const date = new Date(year, month - 1, day);
     return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1)
       .toString()
       .padStart(2, '0')}/${date.getFullYear()}`;
+  }
+
+  openPersonDetails(person: any): void {
+    const id = person.id; // Pegue o ID do objeto person
+    const apiUrl = `https://abitus-api.pjc.mt.gov.br/v1/pessoas/${id}`;
+  
+    this.http.get<any>(apiUrl).subscribe(
+      (response) => {
+        // Abra o modal com os dados retornados pela API
+        this.dialog.open(ModalPersonDetails, {
+          data: response, // Passe os dados retornados para o modal
+          width: '600px',
+        });
+        console.log(response)
+      },
+      (error) => {
+        console.error('Erro ao buscar os detalhes da pessoa:', error);
+      }
+    );
   }
 }

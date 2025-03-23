@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog'; // Importação do MatDialogModule
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 
 @NgModule({
@@ -8,7 +9,8 @@ import { FilterBarComponent } from './components/filter-bar/filter-bar.component
     FilterBarComponent
   ],
   imports: [
-    FormsModule
+    FormsModule,
+    MatDialogModule // Adicione esta linha
   ],
   bootstrap: [/* componente raiz */]
 })
