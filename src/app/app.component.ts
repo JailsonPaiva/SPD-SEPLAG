@@ -63,6 +63,9 @@ export class AppComponent implements OnInit {
     sexo: string;
     status: string;
   }) {
+    this.filters = filters;
+    this.currentPage = 0;
+    this.fetchData();
     console.log('Filtros aplicados:', filters);
   }
 
@@ -78,16 +81,14 @@ export class AppComponent implements OnInit {
     }
   }
 
-  // Função para calcular os dias desaparecido
   calculateMissingDays(dataDesaparecimento?: string): number {
     if (!dataDesaparecimento) return 0;
     const desaparecimento = new Date(dataDesaparecimento);
     const hoje = new Date();
     const diffTime = Math.abs(hoje.getTime() - desaparecimento.getTime());
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Converte para dias
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
   }
 
-  // Função para formatar a data no formato dia/mês/ano
   formatDate(dateString?: string): string {
     if (!dateString) return 'data desconhecida';
     const date = new Date(dateString);

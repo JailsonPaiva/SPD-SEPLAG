@@ -1,18 +1,16 @@
-<div class="card">
-  <div class="card-body">
-    <img *ngIf="imageUrl" [src]="imageUrl" alt="{{ name }}" class="img-fluid rounded" />
-    <h3 class="text-center">{{ name }}</h3>
-    <p class="text-center">{{ age }} anos • {{ gender }}</p>
-    <p class="text-center">Desaparecido desde: {{ desaparecidoEm }}</p>
-    <p class="text-center">{{ missingDays }} dias desaparecido</p>
-    <div>
-      <strong>Último local visto:</strong> {{ lastSeen }}
-    </div>
-    <div>
-      <strong>Vestimentas:</strong> {{ vestimentas }}
-    </div>
-    <div>
-      <strong>Informações adicionais:</strong> {{ informacao }}
+<div class="card w-[288px] h-[450px] rounded-lg shadow-lg bg-white">
+  <div class="card-body h-full overflow-hidden rounded-t-sm mb-2">
+    <img *ngIf="imageUrl" [src]="imageUrl" alt="{{ name }}" class="w-[288px] h-[300px] object-cover img-fluid rounded " />
+    <div class="h-[150px] flex flex-col justify-center">
+      <h3 class="text-black font-bold text-lg text-center">
+        {{ name }}
+      </h3>
+      <p class="text-gray-600 text-sm text-center">
+        {{ age }} anos • {{ gender }}
+      </p>
+      <p class="text-gray-600 text-sm text-center">
+        Desaparecido(a) em: {{ desaparecidoEm }}
+      </p>
     </div>
   </div>
 </div>

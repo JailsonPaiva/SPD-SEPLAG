@@ -27,7 +27,7 @@ export class FilterBarComponent {
     status: 'DESAPARECIDO',
   };
 
-  applyFilters() {
+  handleFilter() {
     this.onFilter.emit({
       nome: this.filters.nome,
       faixaIdadeInicial: this.filters.faixaIdadeInicial ?? 0,
