@@ -1,47 +1,18 @@
-<div 
-  (click)="fetchDetails(person.id)"
-  class="card"
->
-  <img 
-    [src]="person.imageUrl || 'assets/sem-foto.svg'"
-    [alt]="person.name"
-    class="card-img"
-  />
-  <div class="card-content">
-    <h3>{{ person.name }}</h3>
-    <p>{{ person.age }} anos • {{ person.gender }}</p>
-    <p>Desaparecido em: {{ person.desaparecidoEm }}</p>
-  </div>
-</div>
-
-<!-- Modal -->
-<div *ngIf="urlPoste" class="modal">
-  <div class="modal-content">
-    <img
-      [src]="person.imageUrl || 'assets/sem-foto.svg'"
-      [alt]="person.name"
-      class="modal-img"
-    />
-    <h2>{{ person.name }} • {{ person.age }} anos</h2>
-    <p><strong>Gênero:</strong> {{ person.gender }}</p>
-    <p><strong>Último local visto:</strong> {{ person.lastSeen }}</p>
-    <p><strong>Desaparecido desde:</strong> {{ person.desaparecidoEm }}</p>
-    <p><strong>Vestimentas:</strong> {{ person.vestimentas }}</p>
-    <p><strong>Informações adicionais:</strong> {{ person.informacao }}</p>
-    <p *ngIf="person.status">
-      <strong>Status:</strong> {{ person.status }}
-    </p>
-
-    <div class="modal-actions">
-      <button (click)="downloadPoster()" [disabled]="!urlPoste">
-        Baixar Cartaz
-      </button>
-      <button (click)="shareOnWhatsApp()">
-        WhatsApp
-      </button>
-      <button (click)="shareOnInstagram()">
-        Instagram
-      </button>
+<div class="card">
+  <div class="card-body">
+    <img *ngIf="imageUrl" [src]="imageUrl" alt="{{ name }}" class="img-fluid rounded" />
+    <h3 class="text-center">{{ name }}</h3>
+    <p class="text-center">{{ age }} anos • {{ gender }}</p>
+    <p class="text-center">Desaparecido desde: {{ desaparecidoEm }}</p>
+    <p class="text-center">{{ missingDays }} dias desaparecido</p>
+    <div>
+      <strong>Último local visto:</strong> {{ lastSeen }}
+    </div>
+    <div>
+      <strong>Vestimentas:</strong> {{ vestimentas }}
+    </div>
+    <div>
+      <strong>Informações adicionais:</strong> {{ informacao }}
     </div>
   </div>
 </div>

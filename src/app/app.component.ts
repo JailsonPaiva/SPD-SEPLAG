@@ -6,12 +6,13 @@ import { MissingPersonCardComponent } from './components/cadr-desaparecida/card-
 import { FilterBarComponent } from './components/filter-bar/filter-bar.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
+    CommonModule,
     HeaderComponent,
     MissingPersonCardComponent,
     FilterBarComponent,
@@ -32,7 +33,7 @@ export class AppComponent implements OnInit {
   currentPage = 0;
   recordsPerPage = 12;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.fetchData();

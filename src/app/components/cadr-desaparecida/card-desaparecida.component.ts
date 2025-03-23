@@ -1,11 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { MissingPerson } from './card-desaparecida.interface';
 import { HttpClient } from '@angular/common/http';
-
+import { NgIf } from '@angular/common'; 
 @Component({
   selector: 'app-missing-person-card',
   templateUrl: './card-desaparecida.component.html',
-  styleUrls: ['./card-desaparecida.component.scss']
+  styleUrls: ['./card-desaparecida.component.scss'],
+  imports: [NgIf],
+
 })
 export class MissingPersonCardComponent {
   @Input() person!: MissingPerson;

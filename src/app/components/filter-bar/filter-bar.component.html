@@ -1,18 +1,19 @@
 <div class="bg-white shadow-md rounded-lg p-4 mb-6 flex flex-col gap-4">
   <!-- Formulário de Filtros -->
-  <form (ngSubmit)="handleFilter()" class="flex flex-col gap-4">
+  <form (ngSubmit)="applyFilters()" class="flex flex-col gap-4">
     <!-- Primeira linha: Campo de busca e seleção de sexo -->
     <div class="flex flex-col sm:flex-row justify-between gap-4">
       <input
         type="text"
-        [(ngModel)]="nome"
+        [(ngModel)]="filters.nome"
         name="nome"
         placeholder="Buscar por nome"
         class="border border-gray-300 rounded-md px-4 py-2 w-full sm:w-[74.5%]"
+        required
       />
 
       <select
-        [(ngModel)]="sexo"
+        [(ngModel)]="filters.sexo"
         name="sexo"
         class="border border-gray-300 rounded-md px-4 py-2 w-full sm:w-[24%]"
       >
@@ -26,22 +27,24 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <input
         type="number"
-        [(ngModel)]="faixaIdadeInicial"
+        [(ngModel)]="filters.faixaIdadeInicial"
         name="faixaIdadeInicial"
         placeholder="Idade inicial"
         class="border border-gray-300 rounded-md px-4 py-2 w-full"
+        min="0"
       />
 
       <input
         type="number"
-        [(ngModel)]="faixaIdadeFinal"
+        [(ngModel)]="filters.faixaIdadeFinal"
         name="faixaIdadeFinal"
         placeholder="Idade final"
         class="border border-gray-300 rounded-md px-4 py-2 w-full"
+        min="0"
       />
 
       <select
-        [(ngModel)]="status"
+        [(ngModel)]="filters.status"
         name="status"
         class="border border-gray-300 rounded-md px-4 py-2 w-full"
       >
@@ -53,7 +56,7 @@
       <button
         type="submit"
         class="bg-blue-500 text-white px-4 py-2 rounded-md w-full"
-      >
+        [disabled]="!filters.nome && !filters.sexo && !filters.status" >
         Buscar
       </button>
     </div>

@@ -1,37 +1,39 @@
 // filepath: c:\Users\JailsonPaiva\pessoas-desaparecidas\src\app\components\filter-bar\filter-bar.component.ts
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // Importação do FormsModule
+import { NgIf } from '@angular/common'; // Importação do NgIf para condicional no template
 
 @Component({
   selector: 'app-filter-bar',
-  standalone: true,
-  imports: [FormsModule, NgIf],
   templateUrl: './filter-bar.component.html',
-  styleUrls: ['./filter-bar.component.scss']
+  styleUrls: ['./filter-bar.component.scss'],
+  standalone: true,
+  imports: [FormsModule], // Adicione o FormsModule aqui
 })
 export class FilterBarComponent {
   @Output() onFilter = new EventEmitter<{
     nome: string;
-    faixaIdadeInicial: number | null;
-    faixaIdadeFinal: number | null;
+    faixaIdadeInicial: number | 0;
+    faixaIdadeFinal: number | 0;
     sexo: string;
     status: string;
   }>();
 
-  nome: string = '';
-  faixaIdadeInicial: number | null = null;
-  faixaIdadeFinal: number | null = null;
-  sexo: string = '';
-  status: string = '';
+  filters = {
+    nome: '',
+    faixaIdadeInicial: 0,
+    faixaIdadeFinal: 0,
+    sexo: '',
+    status: 'DESAPARECIDO',
+  };
 
-  handleFilter() {
+  applyFilters() {
     this.onFilter.emit({
-      nome: this.nome,
-      faixaIdadeInicial: this.faixaIdadeInicial,
-      faixaIdadeFinal: this.faixaIdadeFinal,
-      sexo: this.sexo,
-      status: this.status,
+      nome: this.filters.nome,
+      faixaIdadeInicial: this.filters.faixaIdadeInicial ?? 0,
+      faixaIdadeFinal: this.filters.faixaIdadeFinal ?? 0,
+      sexo: this.filters.sexo,
+      status: this.filters.status,
     });
   }
 }

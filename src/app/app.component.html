@@ -8,28 +8,28 @@
 <body>
   <!-- <app-root></app-root> -->
   <app-header></app-header>
-  <app-filter-bar (onFilter)="handleFilter($event)"></app-filter-bar>
+
   <div class="container mx-auto px-4 py-8">
     <app-filter-bar (onFilter)="handleFilter($event)"></app-filter-bar>
   
-    <h2 class="text-center text-2xl font-semibold text-black_gradient dark:text-white mb-8">
+    <h2 class="text-center text-2xl font-semibold text-black_gradient text-black mb-8">
       Pessoas Desaparecidas
     </h2>
   
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
+    <div class="h-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
       <app-missing-person-card
-        *ngFor="let person of missingPeople"
-        [id]="person.id"
-        [name]="person.nome"
-        [age]="person.idade"
-        [gender]="person.sexo"
-        [imageUrl]="person.urlFoto"
-        [missingDays]="calculateMissingDays(person.ultimaOcorrencia?.dtDesaparecimento)"
-        [lastSeen]="person.ultimaOcorrencia?.localDesaparecimentoConcat"
-        [desaparecidoEm]="formatDate(person.ultimaOcorrencia?.dtDesaparecimento)"
-        [vestimentas]="person.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.vestimentasDesaparecido"
-        [informacao]="person.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.informacao">
-      </app-missing-person-card>
+      *ngFor="let person of missingPeople"
+      [id]="person.id"
+      [name]="person.nome"
+      [age]="person.idade"
+      [gender]="person.sexo"
+      [imageUrl]="person.urlFoto || ''"
+      [missingDays]="calculateMissingDays(person.ultimaOcorrencia?.dtDesaparecimento)"
+      [lastSeen]="person.ultimaOcorrencia?.localDesaparecimentoConcat"
+      [desaparecidoEm]="formatDate(person.ultimaOcorrencia?.dtDesaparecimento)"
+      [vestimentas]="person.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.vestimentasDesaparecido"
+      [informacao]="person.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.informacao">
+    </app-missing-person-card>
     </div>
   
     <div class="flex justify-center items-center gap-24 mt-8">
@@ -42,5 +42,6 @@
       </button>
     </div>
   </div>
+  
 </body>
 </html>
