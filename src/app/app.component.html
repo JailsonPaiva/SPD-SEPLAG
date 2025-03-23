@@ -12,23 +12,32 @@
   <div class="container mx-auto px-4 py-8">
     <app-filter-bar (onFilter)="handleFilter($event)"></app-filter-bar>
   
-    <h2 class="text-center text-2xl font-semibold text-black_gradient text-black mb-8">
-      Pessoas Desaparecidas
-    </h2>
+    <div *ngIf="filters.status === 'DESAPARECIDO' || !filters.status" class="text-center">
+      <h2 class="text-center text-2xl font-semibold text-black_gradient text-black mb-8">
+        Pessoas Desaparecidas
+      </h2>
+    </div>
+
+    <div *ngIf="filters.status === 'LOCALIZADO'" class="text-center">
+      <h2 class="text-center text-2xl font-semibold text-black_gradient text-black mb-8">
+        Pessoas Localizadas
+      </h2>
+    </div>
   
-    <div *ngIf="missingPeople.length === 0" class="text-center text-gray-700">
+    <div *ngIf="missingPeople.content?.length === 0" class="text-center text-gray-700">
       <p>Nenhuma pessoa encontrada. Tente ajustar os filtros ou recarregar a página.</p>
     </div>
-    <div *ngIf="missingPeople.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
+    <div *ngIf="missingPeople.content.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
       <app-missing-person-card
-      *ngFor="let person of missingPeople"
+      *ngFor="let person of missingPeople.content"
       [id]="person.id"
       [name]="person.nome"
       [age]="person.idade"
       [gender]="person.sexo"
-      [imageUrl]="person.urlFoto ||  'https://desaparecidos.pjc.mt.gov.br/assets/img/sem-foto.svg'"
+      [imageUrl]="person.urlFoto?.replace('https://', 'http://') ||  'https://desaparecidos.pjc.mt.gov.br/assets/img/sem-foto.svg'"
       [missingDays]="calculateMissingDays(person.ultimaOcorrencia?.dtDesaparecimento)"
       [lastSeen]="person.ultimaOcorrencia?.localDesaparecimentoConcat"
+      [localizadoEm]="formatDate(person.ultimaOcorrencia?.dataLocalizacao)"
       [desaparecidoEm]="formatDate(person.ultimaOcorrencia?.dtDesaparecimento)"
       [vestimentas]="person.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.vestimentasDesaparecido"
       [informacao]="person.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.informacao">
@@ -36,11 +45,11 @@
     </div>
   
     <div class="flex justify-center items-center gap-24 mt-8">
-      <button (click)="handlePreviousPage()" [disabled]="currentPage === 0" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md">
+      <button (click)="handlePreviousPage()" [disabled]="currentPage === 0" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md cursor-pointer hover:bg-gray-400 transition-colors duration-300">
         Página Anterior
       </button>
       <span class="text-gray-700">Página {{ currentPage + 1 }}</span>
-      <button (click)="handleNextPage()" class="bg-blue-500 text-white px-4 py-2 rounded-md">
+      <button (click)="handleNextPage()" class="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-blue-600 transition-colors duration-300">
         Próxima Página
       </button>
     </div>

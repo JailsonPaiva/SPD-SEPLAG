@@ -7,7 +7,6 @@ import { NgIf } from '@angular/common';
   templateUrl: './card-desaparecida.component.html',
   styleUrls: ['./card-desaparecida.component.scss'],
   imports: [NgIf],
-
 })
 export class MissingPersonCardComponent {
   @Input() person!: MissingPerson;
@@ -18,6 +17,7 @@ export class MissingPersonCardComponent {
   @Input() imageUrl?: string;
   @Input() missingDays: number = 0;
   @Input() lastSeen: string = '';
+  @Input() localizadoEm: string = '';
   @Input() desaparecidoEm: string = '';
   @Input() vestimentas: string = '';
   @Input() informacao: string = '';

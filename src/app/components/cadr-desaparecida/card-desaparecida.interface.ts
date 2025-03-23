@@ -6,6 +6,7 @@ export interface MissingPerson {
     imageUrl: string;
     missingDays: number;
     lastSeen: string;
+    localizadoEm: string;
     desaparecidoEm: string;
     vestimentas: string;
     informacao: string;

@@ -8,9 +8,22 @@
       <p class="text-gray-600 text-sm text-center">
         {{ age }} anos • {{ gender }}
       </p>
-      <p class="text-gray-600 text-sm text-center">
-        Desaparecido(a) em: {{ desaparecidoEm }}
-      </p>
+
+      <!-- Exibe "Desaparecido(a) em" se localizadoEm não existir -->
+      <div *ngIf="!localizadoEm ; else localizadoTemplate" class="text-gray-600 text-sm text-center">
+        <p class="text-gray-600 text-sm text-center">
+          Desaparecido(a) em: {{ desaparecidoEm }}
+        </p>
+      </div>
+
+      <!-- Exibe "Localizado(a) em" se localizadoEm existir -->
+      <ng-template #localizadoTemplate>
+        <div class="text-gray-600 text-sm text-center">
+          <p class="text-gray-600 text-sm text-center">
+            Localizado(a) em: {{ localizadoEm }}
+          </p>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>
