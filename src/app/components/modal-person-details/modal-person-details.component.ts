@@ -31,19 +31,20 @@ export class ModalPersonDetails {
     // Adicione a lógica para envio de informações
   }
 
-  downloadPoster() {
-    if (this.person?.urlPoste) {
+  downloadPoster(person: any) {
+    if (person?.ultimaOcorrencia.listaCartaz[0]?.urlCartaz) {
       const link = document.createElement('a');
-      link.href = this.person.urlPoste.toString();
-      link.download = `cartaz-desaparecido-${this.person.name}.pdf`;
+      link.href = person?.ultimaOcorrencia.listaCartaz[0]?.urlCartaz.toString();
+      link.download = `cartaz-desaparecido-${person.nome}.pdf`;
       link.click();
     } else {
       alert('Arquivo não disponível para download.');
     }
   }
 
-  shareOnWhatsApp() {
-    const message = `Pessoa desaparecida: ${this.person.name}, ${this.person.age} anos. Por favor, compartilhe.`;
+  shareOnWhatsApp(person: any) {
+    console.log('Compartilhar no WhatsApp:', person);
+    const message = `Pessoa desaparecida: ${person?.nome}, ${person?.idade} anos. Por favor, compartilhe.`;
     window.open(`https://wa.me/?text=${encodeURIComponent(message)}`);
   }
 
@@ -52,8 +53,12 @@ export class ModalPersonDetails {
   }
 
   missingDays(dataDesaparecimento?: string): number {
-    if (!dataDesaparecimento) return 0;
+    if (!dataDesaparecimento) return 0; // Retorna 0 se a data for inválida
     const desaparecimento = new Date(dataDesaparecimento);
+    if (isNaN(desaparecimento.getTime())) {
+      console.error('Data inválida:', dataDesaparecimento);
+      return 0; // Retorna 0 se a data não for válida
+    }
     const hoje = new Date();
     const diffTime = Math.abs(hoje.getTime() - desaparecimento.getTime());
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
