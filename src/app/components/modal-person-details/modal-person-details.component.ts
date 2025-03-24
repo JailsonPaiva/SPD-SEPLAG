@@ -1,7 +1,9 @@
 import { Component, Inject, Input } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { FormModalComponent } from '../form-modal/form-modal.component';
 
 @Component({
   selector: 'modal-person-details',
@@ -11,25 +13,19 @@ import { CommonModule } from '@angular/common';
   imports: [
     MatDialogModule, // Módulo para diálogos
     MatIconModule,   // Módulo para ícones
-    CommonModule,    // Import CommonModule for ngClass
+    CommonModule,
+    FormsModule,    // Import CommonModule for ngClass
   ],
 })
 export class ModalPersonDetails {
   @Input() person: any; // Add Input property for person
+  showForm = false; // Controle de exibição do formulário
 
   constructor(
-    public dialogRef: MatDialogRef<ModalPersonDetails>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    public dialogRef: MatDialogRef<ModalPersonDetails>, 
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialog: MatDialog // Adicionado para abrir o novo modal
   ) {}
-
-  closeModal() {
-    this.dialogRef.close(); // Close the modal
-  }
-
-  sendInformation() {
-    console.log('Enviar informações sobre a vítima');
-    // Adicione a lógica para envio de informações
-  }
 
   downloadPoster(person: any) {
     if (person?.ultimaOcorrencia.listaCartaz[0]?.urlCartaz) {
@@ -80,4 +76,14 @@ export class ModalPersonDetails {
       .padStart(2, '0')}/${date.getFullYear()}`;
   }
 
+  closeModal() {
+    this.dialogRef.close(); // Close the modal
+  }
+
+  openFormModal(): void {
+    this.dialog.open(FormModalComponent, {
+      width: '600px',
+      data: { id: this.data?.id }, // Passe os dados necessários para o modal
+    });
+  }
 }

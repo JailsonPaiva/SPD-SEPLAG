@@ -52,6 +52,7 @@ export class AppComponent implements OnInit {
   selectedPerson: any = null; // Pessoa selecionada para exibir no modal
   isModalOpen = false; // Controle de exibição do modal
 
+  
 
   constructor(private http: HttpClient, private dialog: MatDialog) { }
 
@@ -141,8 +142,9 @@ export class AppComponent implements OnInit {
       (response) => {
         // Abra o modal com os dados retornados pela API
         this.dialog.open(ModalPersonDetails, {
-          data: response, // Passe os dados retornados para o modal
-          width: '600px',
+          data: response, // Dados passados para o modal
+          width: '550px',
+          panelClass: 'custom-modal', // Classe personalizada
         });
         console.log(response)
       },

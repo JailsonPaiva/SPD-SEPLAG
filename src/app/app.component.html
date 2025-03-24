@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>pessoas-desaparecidas</title>
   </head>
-  <body>
+  <body class="overflow-y-visible">
     <!-- <app-root></app-root> -->
     <app-header></app-header>
 
@@ -19,7 +19,7 @@
         <h2
           class="text-center text-2xl font-semibold text-black_gradient text-black mb-8"
         >
-          Pessoas Desaparecidas
+          PESSOAS DESAPARECIDAS
         </h2>
       </div>
 
@@ -27,7 +27,7 @@
         <h2
           class="text-center text-2xl font-semibold text-black_gradient text-black mb-8"
         >
-          Pessoas Localizadas
+          PESSOAS LOCALIZADAS
         </h2>
       </div>
 
@@ -92,9 +92,7 @@
       </div>
     </div>
 
-    <modal-person-details
-      *ngIf="isModalOpen"
-    >
+    <modal-person-details *ngIf="isModalOpen">
     </modal-person-details>
   </body>
 </html>
