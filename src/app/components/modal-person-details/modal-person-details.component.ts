@@ -28,9 +28,10 @@ export class ModalPersonDetails {
   ) {}
 
   downloadPoster(person: any) {
-    if (person?.ultimaOcorrencia.listaCartaz[0]?.urlCartaz) {
+    if (person?.ultimaOcorrencia.listaCartaz.length > 0) {
+      console.log('Baixar cartaz:', person.ultimaOcorrencia.listaCartaz[0]);
       const link = document.createElement('a');
-      link.href = person?.ultimaOcorrencia.listaCartaz[0]?.urlCartaz.toString();
+      link.href = person.ultimaOcorrencia.listaCartaz[0].urlCartaz.toString();
       link.download = `cartaz-desaparecido-${person.nome}.pdf`;
       link.click();
     } else {
@@ -83,7 +84,7 @@ export class ModalPersonDetails {
   openFormModal(): void {
     this.dialog.open(FormModalComponent, {
       width: '600px',
-      data: { id: this.data?.id }, // Passe os dados necessários para o modal
+      data: { id: this.data?.id, ocoId: this.data.ultimaOcorrencia.ocoId }, // Passe os dados necessários para o modal
     });
   }
 }

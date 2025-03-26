@@ -26,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   ],
   templateUrl: './app.component.html',
 })
+
 export class AppComponent implements OnInit {
   missingPeople: missingPeople = {
     totalPages: 0,
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
     number: 0,
     size: 0
   };
+
   filters = {
     nome: '',
     faixaIdadeInicial: 0,
@@ -46,13 +48,12 @@ export class AppComponent implements OnInit {
     sexo: '',
     status: 'DESAPARECIDO'
   };
+
   currentPage = 0;
   recordsPerPage = 12;
 
   selectedPerson: any = null; // Pessoa selecionada para exibir no modal
   isModalOpen = false; // Controle de exibição do modal
-
-  
 
   constructor(private http: HttpClient, private dialog: MatDialog) { }
 
@@ -71,7 +72,7 @@ export class AppComponent implements OnInit {
       pagina: this.currentPage
     };
 
-    this.http.get<missingPeople>(`https://abitus-api.pjc.mt.gov.br/v1/pessoas/aberto/filtro`, { params: queryParams })
+    this.http.get<missingPeople>(`https://abitus-api.geia.vip/v1/pessoas/aberto/filtro`, { params: queryParams })
       .subscribe((response: missingPeople) => {
         this.missingPeople = {
           ...response,
@@ -81,7 +82,7 @@ export class AppComponent implements OnInit {
           number: response.number ?? 0,
           size: response.size ?? 0
         };
-        console.log('Dados carregados:', this.missingPeople);
+        console.log('Dados carregados:', this.missingPeople.content);
       });
   }
 
@@ -136,8 +137,8 @@ export class AppComponent implements OnInit {
 
   openPersonDetails(person: any): void {
     const id = person.id; // Pegue o ID do objeto person
-    const apiUrl = `https://abitus-api.pjc.mt.gov.br/v1/pessoas/${id}`;
-  
+    const apiUrl = `https://abitus-api.geia.vip/v1/pessoas/${id}`;
+
     this.http.get<any>(apiUrl).subscribe(
       (response) => {
         // Abra o modal com os dados retornados pela API

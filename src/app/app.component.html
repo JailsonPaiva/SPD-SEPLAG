@@ -50,10 +50,8 @@
           [name]="person.nome"
           [age]="person.idade"
           [gender]="person.sexo"
-          [imageUrl]="
-            person.urlFoto?.replace('https://', 'http://') ||
-            'https://desaparecidos.pjc.mt.gov.br/assets/img/sem-foto.svg'
-          "
+          [imageUrl]="person.urlFoto ||
+          'https://desaparecidos.pjc.mt.gov.br/assets/img/sem-foto.svg'"
           [missingDays]="
             calculateMissingDays(person.ultimaOcorrencia?.dtDesaparecimento)
           "
