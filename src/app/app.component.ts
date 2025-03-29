@@ -28,6 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 })
 
 export class AppComponent implements OnInit {
+  title = 'pessoas-desaparecidas';
   missingPeople: missingPeople = {
     totalPages: 0,
     totalElements: 0,
@@ -51,11 +52,12 @@ export class AppComponent implements OnInit {
 
   currentPage = 0;
   recordsPerPage = 12;
+  totalPages = 0; // Adiciona a propriedade totalPages
 
   selectedPerson: any = null; // Pessoa selecionada para exibir no modal
   isModalOpen = false; // Controle de exibição do modal
 
-  constructor(private http: HttpClient, private dialog: MatDialog) { }
+  constructor(public http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.fetchData();
@@ -82,6 +84,7 @@ export class AppComponent implements OnInit {
           number: response.number ?? 0,
           size: response.size ?? 0
         };
+        this.totalPages = response.totalPages; // Atualiza o total de páginas
         console.log('Dados carregados:', this.missingPeople.content);
       });
   }

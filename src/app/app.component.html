@@ -80,17 +80,20 @@
         >
           Página Anterior
         </button>
-        <span class="text-gray-700">Página {{ currentPage + 1 }}</span>
+        <span class="text-gray-700">
+          Página {{ currentPage + 1 }} de {{ totalPages }}
+        </span>
         <button
           (click)="handleNextPage()"
+          [disabled]="currentPage + 1 >= totalPages"
           class="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-blue-600 transition-colors duration-300"
         >
           Próxima Página
         </button>
       </div>
-    </div>
 
-    <modal-person-details *ngIf="isModalOpen">
-    </modal-person-details>
+      <modal-person-details *ngIf="isModalOpen">
+      </modal-person-details>
+    </div>
   </body>
 </html>

@@ -1,14 +1,13 @@
-// filepath: c:\Users\JailsonPaiva\pessoas-desaparecidas\src\app\components\filter-bar\filter-bar.component.ts
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Importação do FormsModule
-import { NgIf } from '@angular/common'; // Importação do NgIf para condicional no template
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-filter-bar',
   templateUrl: './filter-bar.component.html',
   styleUrls: ['./filter-bar.component.scss'],
   standalone: true,
-  imports: [FormsModule], // Adicione o FormsModule aqui
+  imports: [FormsModule],
 })
 export class FilterBarComponent {
   @Output() onFilter = new EventEmitter<{
@@ -26,6 +25,9 @@ export class FilterBarComponent {
     sexo: '',
     status: 'DESAPARECIDO',
   };
+
+  // Exponha o objeto Math para o template
+  Math = Math;
 
   handleFilter() {
     this.onFilter.emit({

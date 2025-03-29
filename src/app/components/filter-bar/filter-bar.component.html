@@ -1,61 +1,90 @@
 <div class="bg-white shadow-md rounded-lg p-4 mb-6 flex flex-col gap-4">
   <form (ngSubmit)="handleFilter()" class="flex flex-col gap-4">
     <div class="flex flex-col sm:flex-row justify-between gap-4">
-      <input
-        type="text"
-        [(ngModel)]="filters.nome"
-        name="nome"
-        placeholder="Buscar por nome"
-        class="border border-gray-300 rounded-md px-4 py-2 w-full sm:w-[74.5%]"
-        required
-      />
+      <div class="flex flex-col w-full sm:w-[74.5%]">
+        <label for="nome" class="text-gray-700 font-medium">Nome</label>
+        <input
+          id="nome"
+          type="text"
+          [(ngModel)]="filters.nome"
+          name="nome"
+          placeholder="Buscar por nome"
+          class="border border-gray-300 rounded-md px-4 py-2"
+          required
+        />
+      </div>
 
-      <select
-        [(ngModel)]="filters.sexo"
-        name="sexo"
-        class="border border-gray-300 rounded-md px-4 py-2 w-full sm:w-[24%]"
-      >
-        <option value="">Sexo</option>
-        <option value="MASCULINO">Masculino</option>
-        <option value="FEMININO">Feminino</option>
-      </select>
+      <div class="flex flex-col w-full sm:w-[24%]">
+        <label for="sexo" class="text-gray-700 font-medium">Sexo</label>
+        <select
+          id="sexo"
+          [(ngModel)]="filters.sexo"
+          name="sexo"
+          class="border border-gray-300 rounded-md px-4 py-2"
+        >
+          <option value="">Sexo</option>
+          <option value="MASCULINO">Masculino</option>
+          <option value="FEMININO">Feminino</option>
+        </select>
+      </div>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <input
-        type="number"
-        [(ngModel)]="filters.faixaIdadeInicial"
-        name="faixaIdadeInicial"
-        placeholder="Idade inicial"
-        class="border border-gray-300 rounded-md px-4 py-2 w-full"
-        min="0"
-      />
+      <div class="flex flex-col">
+        <label for="faixaIdadeInicial" class="text-gray-700 font-medium"
+          >Idade inicial</label
+        >
+        <input
+          id="faixaIdadeInicial"
+          type="number"
+          [(ngModel)]="filters.faixaIdadeInicial"
+          name="faixaIdadeInicial"
+          placeholder="Idade inicial"
+          class="border border-gray-300 rounded-md px-4 py-2"
+          min="0"
+          step="1"
+          (input)="filters.faixaIdadeInicial = Math.floor(filters.faixaIdadeInicial)"
+        />
+      </div>
 
-      <input
-        type="number"
-        [(ngModel)]="filters.faixaIdadeFinal"
-        name="faixaIdadeFinal"
-        placeholder="Idade final"
-        class="border border-gray-300 rounded-md px-4 py-2 w-full"
-        min="0"
-      />
+      <div class="flex flex-col">
+        <label for="faixaIdadeFinal" class="text-gray-700 font-medium"
+          >Idade final</label
+        >
+        <input
+          id="faixaIdadeFinal"
+          type="number"
+          [(ngModel)]="filters.faixaIdadeFinal"
+          name="faixaIdadeFinal"
+          placeholder="Idade final"
+          class="border border-gray-300 rounded-md px-4 py-2"
+          min="0"
+          step="1"
+        />
+      </div>
 
-      <select
-        [(ngModel)]="filters.status"
-        name="status"
-        class="border border-gray-300 rounded-md px-4 py-2 w-full"
-      >
-        <option value="">Status</option>
-        <option value="DESAPARECIDO">Desaparecido</option>
-        <option value="LOCALIZADO">Localizado</option>
-      </select>
+      <div class="flex flex-col">
+        <label for="status" class="text-gray-700 font-medium">Status</label>
+        <select
+          id="status"
+          [(ngModel)]="filters.status"
+          name="status"
+          class="border border-gray-300 rounded-md px-4 py-2"
+        >
+          <option value="DESAPARECIDO" selected>Desaparecido</option>
+          <option value="LOCALIZADO">Localizado</option>
+        </select>
+      </div>
 
-      <button
-        type="submit"
-        class="bg-blue-500 text-white px-4 py-2 rounded-md w-full cursor-pointer hover:bg-blue-600 transition-colors duration-300"
-         >
-        Buscar
-      </button>
+      <div class="flex flex-col">
+        <label class="invisible">Buscar</label>
+        <button
+          type="submit"
+          class="bg-blue-500 text-white px-4 py-2 rounded-md w-full cursor-pointer hover:bg-blue-600 transition-colors duration-300"
+        >
+          Buscar
+        </button>
+      </div>
     </div>
   </form>
 </div>
