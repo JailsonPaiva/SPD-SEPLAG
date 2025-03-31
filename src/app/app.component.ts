@@ -10,6 +10,7 @@ import { missingPeople } from './app.interface';
 import { ModalPersonDetails } from './components/modal-person-details/modal-person-details.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ToastrModule } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     ModalPersonDetails, // Ensure ModalPersonDetails is imported
     MatDialogModule, // Certifique-se de importar o MatDialogModule
+    ToastrModule
   ],
   templateUrl: './app.component.html',
 })

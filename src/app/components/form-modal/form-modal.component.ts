@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './form-modal.component.html',
   styleUrls: ['./form-modal.component.scss'],
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatDialogModule],
 })
 export class FormModalComponent {
   formData = {
@@ -20,7 +20,7 @@ export class FormModalComponent {
     ocoId: '',
   };
 
-  selectedFile: File | null = null; // Propriedade para armazenar o arquivo selecionado
+  selectedFile: File | null = null;
 
   constructor(
     public dialogRef: MatDialogRef<FormModalComponent>,
@@ -65,18 +65,21 @@ export class FormModalComponent {
       formData.append('arquivo', this.selectedFile, this.selectedFile.name);
     }
 
-    this.http.post(apiUrl, formData).subscribe(
-      (response) => {
+    this.http.post(apiUrl, formData).subscribe({
+      next: (response) => {
         console.log('Dados enviados com sucesso:', response);
+        alert('Formulário enviado com sucesso!');
         this.dialogRef.close(this.formData); // Fecha o modal e retorna os dados
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao enviar os dados:', error);
+        alert('Erro ao enviar o formulário. Por favor, tente novamente.');
       }
-    );
+    });
   }
 
   closeModal(): void {
+    alert('Modal fechado.');
     this.dialogRef.close(); // Fecha o modal sem retornar dados
   }
 }
