@@ -23,7 +23,7 @@ export class FormModalComponent {
     anexos: '',
   };
 
-  selectedFile: File | null = null; // Propriedade para armazenar o arquivo selecionado
+  selectedFile: File | null = null;
 
   constructor(
     public dialogRef: MatDialogRef<FormModalComponent>,
@@ -61,16 +61,15 @@ export class FormModalComponent {
     formData.append('descricao', this.formData.descricao);
     formData.append('data', this.formData.data);
     formData.append('ocoId', this.formData.ocoId);
-    formData.append('anexos', this.formData.anexos);
 
     // Adicione o arquivo ao FormData, se existir
     if (this.selectedFile) {
-      formData.append('arquivo', this.selectedFile, this.selectedFile.name);
+      formData.append('anexos', this.selectedFile);
     }
 
     this.peopleService.submitForm(formData).subscribe({
       next: (response: any) => {
-        console.log('Dados enviados com sucesso:', response);
+        console.log('Dados enviados com sucesso:', this.formData);
         this.dialogRef.close(this.formData); 
         alert('Formulário enviado com sucesso!');
       },
@@ -82,6 +81,7 @@ export class FormModalComponent {
   }
 
   closeModal(): void {
+    alert('Modal fechado.');
     this.dialogRef.close(); // Fecha o modal sem retornar dados
   }
 }

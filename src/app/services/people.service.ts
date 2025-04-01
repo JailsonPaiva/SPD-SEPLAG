@@ -20,6 +20,7 @@ export class PeopleService {
   }
 
   submitForm(formData: FormData): Observable<any> {
+    console.log('Dados enviados:', formData);
     return this.http.post(`${this.apiUrl}/ocorrencias/informacoes-desaparecido`, formData);
   }
 } 
