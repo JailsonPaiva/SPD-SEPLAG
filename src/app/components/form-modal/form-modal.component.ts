@@ -1,15 +1,17 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { PeopleService } from '../../services/people.service';
 
 @Component({
   selector: 'app-form-modal',
   templateUrl: './form-modal.component.html',
   styleUrls: ['./form-modal.component.scss'],
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatDialogModule],
+  providers: [HttpClient, PeopleService],
 })
 export class FormModalComponent {
   formData = {
@@ -18,6 +20,7 @@ export class FormModalComponent {
     data: '',
     personId: '',
     ocoId: '',
+    anexos: '',
   };
 
   selectedFile: File | null = null; // Propriedade para armazenar o arquivo selecionado
@@ -25,7 +28,8 @@ export class FormModalComponent {
   constructor(
     public dialogRef: MatDialogRef<FormModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private http: HttpClient
+    private http: HttpClient,
+    private peopleService: PeopleService
   ) {
     this.formData.personId = data?.id || '';
     this.formData.ocoId = data?.ocoId || '';
@@ -52,30 +56,29 @@ export class FormModalComponent {
 
   // Método para enviar o formulário
   submitForm(): void {
-    const apiUrl = 'https://abitus-api.geia.vip/v1/ocorrencias/informacoes-desaparecido';
-
     const formData = new FormData();
     formData.append('informacao', this.formData.informacao);
     formData.append('descricao', this.formData.descricao);
     formData.append('data', this.formData.data);
     formData.append('ocoId', this.formData.ocoId);
+    formData.append('anexos', this.formData.anexos);
 
     // Adicione o arquivo ao FormData, se existir
     if (this.selectedFile) {
       formData.append('arquivo', this.selectedFile, this.selectedFile.name);
     }
 
-    this.http.post(apiUrl, formData).subscribe(
-      (response) => {
+    this.peopleService.submitForm(formData).subscribe({
+      next: (response: any) => {
         console.log('Dados enviados com sucesso:', response);
-        this.dialogRef.close(this.formData); // Fecha o modal e retorna os dados
+        this.dialogRef.close(this.formData); 
         alert('Formulário enviado com sucesso!');
       },
-      (error) => {
+      error: (error: any) => {
         console.error('Erro ao enviar os dados:', error);
         alert('Erro ao enviar o formulário. Por favor, tente novamente.');
       }
-    );
+    });
   }
 
   closeModal(): void {

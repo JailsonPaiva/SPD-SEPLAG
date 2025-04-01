@@ -1,0 +1,88 @@
+<app-header></app-header>
+<div class="container mx-auto px-4 py-8">
+  <app-filter-bar (filterChange)="handleFilter($event)"></app-filter-bar>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
+    <card-missing-people
+      *ngFor="let person of missingPeople.content"
+      [person]="person"
+      [id]="person.id"
+      [name]="person.nome"
+      [age]="person.idade"
+      [gender]="person.sexo"
+      [imageUrl]="person.urlFoto?.replace('https://', 'http://')"
+      [missingDays]="
+        calculateMissingDays(person.ultimaOcorrencia?.dtDesaparecimento)
+      "
+      [lastSeen]="person.ultimaOcorrencia?.localDesaparecimentoConcat"
+      [localizadoEm]="person.ultimaOcorrencia?.dataLocalizacao"
+      [desaparecidoEm]="formatDate(person.ultimaOcorrencia?.dtDesaparecimento)"
+      [vestimentas]="
+        person.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO
+          ?.vestimentasDesaparecido
+      "
+      [informacao]="
+        person.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.informacao
+      "
+      (click)="openPersonDetails(person)"
+    ></card-missing-people>
+  </div>
+
+  <div class="flex justify-center items-center gap-24 mt-8">
+    <button
+      (click)="handlePreviousPage()"
+      [disabled]="currentPage === 0"
+      class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md cursor-pointer hover:bg-gray-400 transition-colors duration-300"
+    >
+      Página Anterior
+    </button>
+    <span class="text-gray-700">
+      Página {{ currentPage + 1 }} de {{ totalPages }}
+    </span>
+    <button
+      (click)="handleNextPage()"
+      class="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-blue-600 transition-colors duration-300"
+    >
+      Próxima Página
+    </button>
+  </div>
+</div>
+
+<footer class="w-full bg-gray-800 text-white mt-16 py-8">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-24">
+      <div>
+        <h3 class="text-xl font-bold mb-4">Sobre o Portal</h3>
+        <p class="text-gray-300">
+          O Portal de Pessoas Desaparecidas é uma iniciativa que visa auxiliar
+          na localização de pessoas desaparecidas através da divulgação de
+          informações e fotos.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-bold mb-4">Contatos Úteis</h3>
+        <ul class="text-gray-300">
+          <li>Polícia Civil: 197</li>
+          <li>Polícia Militar: 190</li>
+          <li>Disque Direitos Humanos: 100</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-bold mb-4">Informações</h3>
+        <ul class="text-gray-300">
+          <li>Em caso de desaparecimento, registre um Boletim de Ocorrência</li>
+          <li>Mantenha os dados sempre atualizados</li>
+          <li>Compartilhe as informações em redes sociais</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="text-center mt-8 pt-4 border-t border-gray-700">
+      <p class="text-gray-400">
+        © 2024 Portal de Pessoas Desaparecidas. Todos os direitos reservados.
+      </p>
+    </div>
+  </div>
+</footer>

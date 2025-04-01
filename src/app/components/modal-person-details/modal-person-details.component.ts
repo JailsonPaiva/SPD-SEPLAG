@@ -1,9 +1,12 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Inject, Input, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FormModalComponent } from '../form-modal/form-modal.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'modal-person-details',
@@ -15,17 +18,45 @@ import { FormModalComponent } from '../form-modal/form-modal.component';
     MatIconModule,   // Módulo para ícones
     CommonModule,
     FormsModule,    // Import CommonModule for ngClass
+    MatProgressSpinnerModule,
+    HttpClientModule
   ],
 })
 export class ModalPersonDetails {
   @Input() person: any; // Add Input property for person
   showForm = false; // Controle de exibição do formulário
+  data: any;
 
   constructor(
-    public dialogRef: MatDialogRef<ModalPersonDetails>, 
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialog: MatDialog // Adicionado para abrir o novo modal
-  ) {}
+    @Optional() public dialogRef: MatDialogRef<ModalPersonDetails>,
+    @Optional() @Inject(MAT_DIALOG_DATA) dialogData: any,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router,
+    private http: HttpClient
+  ) {
+    if (dialogData) {
+      this.data = dialogData;
+    } else {
+      this.route.params.subscribe(params => {
+        if (params['id']) {
+          this.loadPersonDetails(params['id']);
+        }
+      });
+    }
+  }
+
+  private loadPersonDetails(id: string) {
+    this.http.get<any>(`https://abitus-api.geia.vip/v1/pessoas/${id}`).subscribe(
+      (response) => {
+        this.data = response;
+      },
+      (error) => {
+        console.error('Erro ao carregar detalhes da pessoa:', error);
+        this.router.navigate(['/']);
+      }
+    );
+  }
 
   downloadPoster(person: any) {
     if (person?.ultimaOcorrencia.listaCartaz.length > 0) {
@@ -78,13 +109,33 @@ export class ModalPersonDetails {
   }
 
   closeModal() {
-    this.dialogRef.close(); // Close the modal
+    if (this.dialogRef) {
+      this.dialogRef.close(); // Close the modal
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 
   openFormModal(): void {
-    this.dialog.open(FormModalComponent, {
+    if (!this.data?.id || !this.data?.ultimaOcorrencia?.ocoId) {
+      console.error('Dados necessários não encontrados:', this.data);
+      return;
+    }
+
+    const dialogRef = this.dialog.open(FormModalComponent, {
       width: '600px',
-      data: { id: this.data?.id, ocoId: this.data.ultimaOcorrencia.ocoId }, // Passe os dados necessários para o modal
+      data: { 
+        id: this.data.id, 
+        ocoId: this.data.ultimaOcorrencia.ocoId 
+      },
+      disableClose: false,
+      autoFocus: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Formulário enviado com sucesso:', result);
+      }
     });
   }
 }

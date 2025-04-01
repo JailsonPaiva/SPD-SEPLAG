@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MissingPersonCardComponent } from './card-desaparecida.component';
+import { MissingPersonCardComponent } from './card-missing-people.component';
 import { By } from '@angular/platform-browser';
 
 describe('MissingPersonCardComponent', () => {

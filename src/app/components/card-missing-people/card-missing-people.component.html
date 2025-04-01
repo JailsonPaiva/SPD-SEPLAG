@@ -1,4 +1,4 @@
-<div class="card w-[288px] h-[450px] rounded-lg shadow-lg bg-white">
+<div class="card w-[288px] h-[312px] rounded-lg shadow-lg bg-white">
   <div class="card-body h-full overflow-hidden rounded-t-sm mb-2">
     <div class="relative">
       <img [src]="imageUrl" 
@@ -16,14 +16,12 @@
         {{ age }} anos • {{ gender }}
       </p>
 
-      <!-- Exibe "Desaparecido(a) em" se localizadoEm não existir -->
       <div *ngIf="!localizadoEm ; else localizadoTemplate" class="text-gray-600 text-sm text-center">
         <p class="text-gray-600 text-sm text-center">
           Desaparecido(a) em: {{ desaparecidoEm }}
         </p>
       </div>
 
-      <!-- Exibe "Localizado(a) em" se localizadoEm existir -->
       <ng-template #localizadoTemplate>
         <div class="text-gray-600 text-sm text-center">
           <p class="text-gray-600 text-sm text-center">

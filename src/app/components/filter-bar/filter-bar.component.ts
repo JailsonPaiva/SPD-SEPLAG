@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-filter-bar',
@@ -10,7 +9,7 @@ import { NgIf } from '@angular/common';
   imports: [FormsModule],
 })
 export class FilterBarComponent {
-  @Output() onFilter = new EventEmitter<{
+  @Output() filterChange = new EventEmitter<{
     nome: string;
     faixaIdadeInicial: number | 0;
     faixaIdadeFinal: number | 0;
@@ -30,7 +29,7 @@ export class FilterBarComponent {
   Math = Math;
 
   handleFilter() {
-    this.onFilter.emit({
+    this.filterChange.emit({
       nome: this.filters.nome,
       faixaIdadeInicial: this.filters.faixaIdadeInicial ?? 0,
       faixaIdadeFinal: this.filters.faixaIdadeFinal ?? 0,
