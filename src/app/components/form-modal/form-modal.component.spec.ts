@@ -49,6 +49,7 @@ describe('FormModalComponent', () => {
       data: '2025-03-29',
       personId: '123',
       ocoId: '456',
+      anexos: '',
     };
 
     const formElement = fixture.debugElement.query(By.css('form')).nativeElement;

@@ -20,8 +20,8 @@ describe('FilterBarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit onFilter event with correct filters', () => {
-    spyOn(component.onFilter, 'emit');
+  it('should emit filterChange event with correct filters', () => {
+    spyOn(component.filterChange, 'emit');
 
     component.filters = {
       nome: 'João',
@@ -33,7 +33,7 @@ describe('FilterBarComponent', () => {
 
     component.handleFilter();
 
-    expect(component.onFilter.emit).toHaveBeenCalledWith({
+    expect(component.filterChange.emit).toHaveBeenCalledWith({
       nome: 'João',
       faixaIdadeInicial: 18,
       faixaIdadeFinal: 30,
@@ -43,7 +43,7 @@ describe('FilterBarComponent', () => {
   });
 
   it('should emit default values if filters are not set', () => {
-    spyOn(component.onFilter, 'emit');
+    spyOn(component.filterChange, 'emit');
 
     component.filters = {
       nome: '',
@@ -55,7 +55,7 @@ describe('FilterBarComponent', () => {
 
     component.handleFilter();
 
-    expect(component.onFilter.emit).toHaveBeenCalledWith({
+    expect(component.filterChange.emit).toHaveBeenCalledWith({
       nome: '',
       faixaIdadeInicial: 0,
       faixaIdadeFinal: 0,

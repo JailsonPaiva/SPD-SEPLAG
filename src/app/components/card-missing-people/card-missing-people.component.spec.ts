@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MissingPersonCardComponent } from './card-missing-people.component';
+import { CardMissingPeopleComponent } from './card-missing-people.component';
 import { By } from '@angular/platform-browser';
 
-describe('MissingPersonCardComponent', () => {
-  let component: MissingPersonCardComponent;
-  let fixture: ComponentFixture<MissingPersonCardComponent>;
+describe('CardMissingPeopleComponent', () => {
+  let component: CardMissingPeopleComponent;
+  let fixture: ComponentFixture<CardMissingPeopleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MissingPersonCardComponent],
+      imports: [CardMissingPeopleComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MissingPersonCardComponent);
+    fixture = TestBed.createComponent(CardMissingPeopleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
