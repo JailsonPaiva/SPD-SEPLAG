@@ -1,6 +1,13 @@
 <div class="card w-[288px] h-[450px] rounded-lg shadow-lg bg-white">
   <div class="card-body h-full overflow-hidden rounded-t-sm mb-2">
-    <img *ngIf="imageUrl" [src]="imageUrl" alt="{{ name }}" class="w-[288px] h-[300px] object-cover img-fluid rounded " />
+    <div class="relative">
+      <img [src]="imageUrl" 
+           [alt]="name" 
+           class="w-full h-78 object-cover">
+      <div *ngIf="!localizadoEm" class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-sm">
+        {{ missingDays }} dias
+      </div>
+    </div>
     <div class="h-[150px] px-2 flex flex-col justify-center ">
       <h3 class="text-black font-bold text-lg text-center">
         {{ name }}

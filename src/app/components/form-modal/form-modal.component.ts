@@ -69,9 +69,11 @@ export class FormModalComponent {
       (response) => {
         console.log('Dados enviados com sucesso:', response);
         this.dialogRef.close(this.formData); // Fecha o modal e retorna os dados
+        alert('Formulário enviado com sucesso!');
       },
       (error) => {
         console.error('Erro ao enviar os dados:', error);
+        alert('Erro ao enviar o formulário. Por favor, tente novamente.');
       }
     );
   }

@@ -10,6 +10,7 @@ import { missingPeople } from './app.interface';
 import { ModalPersonDetails } from './components/modal-person-details/modal-person-details.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -21,8 +22,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     FilterBarComponent,
     FormsModule,
     HttpClientModule,
-    ModalPersonDetails, // Ensure ModalPersonDetails is imported
-    MatDialogModule, // Certifique-se de importar o MatDialogModule
+    ModalPersonDetails, 
+    MatDialogModule,
+    RouterOutlet
   ],
   templateUrl: './app.component.html',
 })
@@ -57,7 +59,7 @@ export class AppComponent implements OnInit {
   selectedPerson: any = null; // Pessoa selecionada para exibir no modal
   isModalOpen = false; // Controle de exibição do modal
 
-  constructor(public http: HttpClient, public dialog: MatDialog) { }
+  constructor(public http: HttpClient, public dialog: MatDialog, public router: Router) { }
 
   ngOnInit(): void {
     this.fetchData();
@@ -139,18 +141,16 @@ export class AppComponent implements OnInit {
   }
 
   openPersonDetails(person: any): void {
-    const id = person.id; // Pegue o ID do objeto person
+    const id = person.id;
     const apiUrl = `https://abitus-api.geia.vip/v1/pessoas/${id}`;
 
     this.http.get<any>(apiUrl).subscribe(
       (response) => {
-        // Abra o modal com os dados retornados pela API
         this.dialog.open(ModalPersonDetails, {
-          data: response, // Dados passados para o modal
+          data: response,
           width: '550px',
-          panelClass: 'custom-modal', // Classe personalizada
+          panelClass: 'custom-modal',
         });
-        console.log(response)
       },
       (error) => {
         console.error('Erro ao buscar os detalhes da pessoa:', error);
