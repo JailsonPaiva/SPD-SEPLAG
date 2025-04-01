@@ -1,60 +1,97 @@
-# PessoasDesaparecidas
+# Sistema de Pessoas Desaparecidas - SPD
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
+Este projeto é um sistema para gerenciar informações sobre pessoas desaparecidas. Ele permite que os usuários visualizem, filtrem e enviem informações sobre casos de desaparecimento.
 
-## Development server
+## Pré-requisitos
 
-To start a local development server, run:
+Antes de começar, você precisará ter instalado em sua máquina:
+
+- [Node.js](https://nodejs.org/) (versão 14 ou superior)
+- [Angular CLI](https://angular.io/cli) (instalado globalmente)
+- [Docker](https://www.docker.com/get-started)
+
+## Instalação
+
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/JailsonPaiva/SPD-SEPLAG.git
+   cd SPD-SEPLAG
+   ```
+
+2. Instale as dependências do projeto:
+
+   ```bash
+   npm install
+   ```
+
+## Executando a Aplicação
+
+Para rodar a aplicação em modo de desenvolvimento, use o seguinte comando:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+A aplicação estará disponível em `http://localhost:4200/`.
 
-## Code scaffolding
+## Executando os Testes
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Para rodar os testes unitários, utilize o seguinte comando:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+## Gerando a Imagem Docker
 
-For end-to-end (e2e) testing, run:
+Para criar uma imagem Docker para a aplicação, siga os passos abaixo:
+
+1. Certifique-se de que você está na raiz do projeto.
+2. Verifique o arquivo `Dockerfile` existe, senão crie ele com o seguinte conteúdo:
+
+   ```dockerfile
+   # Usar a imagem base do Node.js
+   FROM node:18
+
+   # Definir o diretório de trabalho
+   WORKDIR /app
+
+   # Copiar os arquivos do projeto
+   COPY package*.json ./
+   RUN npm install
+   COPY . .
+
+   # Construir a aplicação
+   RUN npm run build
+
+   # Expor a porta que a aplicação irá rodar
+   EXPOSE 4200
+
+   # Comando para iniciar a aplicação
+   CMD ["npm", "start"]
+   ```
+
+3. Execute o seguinte comando para construir a imagem:
+
+   ```bash
+   docker build -t pessoas-desaparecidas .
+   ```
+
+## Rodando o Container Docker
+
+Para rodar o container a partir da imagem que você criou, use o seguinte comando:
 
 ```bash
-ng e2e
+docker run -p 4200:4200 pessoas-desaparecidas
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+A aplicação estará disponível em `http://localhost:4200/`.
 
-## Additional Resources
+## Contribuição
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-# SPD-SEPLAG
+Se você deseja contribuir para este projeto, sinta-se à vontade para abrir um pull request ou relatar problemas.
+
+## Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
