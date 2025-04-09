@@ -8,6 +8,8 @@ import { CardMissingPeopleComponent } from "../card-missing-people/card-missing-
 import { FilterBarComponent } from '../filter-bar/filter-bar.component';
 import { missingPeople } from '../../app.interface';
 import { PeopleService } from '../../services/people.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalPersonDetails } from '../modal-person-details/modal-person-details.component';
 
 @Component({
   selector: 'people-list',
@@ -52,7 +54,8 @@ export class MissingPeopleComponent implements OnInit {
 
   constructor(
     private peopleService: PeopleService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -91,7 +94,10 @@ export class MissingPeopleComponent implements OnInit {
     sexo: string;
     status: string;
   }): void {
-    this.filters = filters;
+    this.filters = {
+      ...filters,
+      status: filters.status || 'DESAPARECIDO'
+    };
     this.currentPage = 0;
     this.fetchData();
   }
@@ -109,7 +115,12 @@ export class MissingPeopleComponent implements OnInit {
   }
 
   openPersonDetails(person: any): void {
-    this.router.navigate(['/detalhes', person.id]);
+    this.dialog.open(ModalPersonDetails, {
+      width: '600px',
+      data: person,
+      disableClose: false,
+      autoFocus: true
+    });
   }
 
   calculateMissingDays(dataDesaparecimento?: string): number {

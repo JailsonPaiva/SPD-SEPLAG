@@ -1,7 +1,10 @@
 <app-header></app-header>
 <div class="container mx-auto px-4 py-8">
   <app-filter-bar (filterChange)="handleFilter($event)"></app-filter-bar>
-
+  
+  <h2 class="justify-center text-3xl font-bold my-10 flex " *ngIf="filters.status === 'DESAPARECIDO'">Pessoas Desaparecidas</h2>
+  <h2 class="justify-center text-3xl font-bold my-10 flex " *ngIf="filters.status === 'LOCALIZADO'">Pessoas Localizadas</h2>
+  
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
     <card-missing-people
       *ngFor="let person of missingPeople.content"
