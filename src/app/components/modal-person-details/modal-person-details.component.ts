@@ -60,7 +60,7 @@ export class ModalPersonDetails {
 
   downloadPoster(person: any) {
     if (person?.ultimaOcorrencia.listaCartaz.length > 0) {
-      console.log('Baixar cartaz:', person.ultimaOcorrencia.listaCartaz[0]);
+      // console.log('Baixar cartaz:', person.ultimaOcorrencia.listaCartaz[0]);
       const link = document.createElement('a');
       link.href = person.ultimaOcorrencia.listaCartaz[0].urlCartaz.toString();
       link.download = `cartaz-desaparecido-${person.nome}.pdf`;
@@ -71,7 +71,7 @@ export class ModalPersonDetails {
   }
 
   shareOnWhatsApp(person: any) {
-    console.log('Compartilhar no WhatsApp:', person);
+    // console.log('Compartilhar no WhatsApp:', person);
     const message = `Pessoa desaparecida: ${person?.nome}, ${person?.idade} anos. Por favor, compartilhe.`;
     window.open(`https://wa.me/?text=${encodeURIComponent(message)}`);
   }
@@ -134,7 +134,7 @@ export class ModalPersonDetails {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Formulário enviado com sucesso:', result);
+        // console.log('Formulário enviado com sucesso:', result);
       }
     });
   }

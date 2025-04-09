@@ -33,7 +33,7 @@ export class FormModalComponent {
   ) {
     this.formData.personId = data?.id || '';
     this.formData.ocoId = data?.ocoId || '';
-    console.log('Dados no formulario:', this.formData);
+    // console.log('Dados no formulario:', this.formData);
   }
 
   // Método para capturar o arquivo selecionado
@@ -45,7 +45,7 @@ export class FormModalComponent {
   
       if (allowedTypes.includes(file.type)) {
         this.selectedFile = file;
-        console.log('Arquivo selecionado:', this.selectedFile);
+        // console.log('Arquivo selecionado:', this.selectedFile);
       } else {
         this.selectedFile = null;
         console.error('Tipo de arquivo não permitido. Por favor, selecione um arquivo PNG, JPEG, JPG ou SVG.');
