@@ -44,7 +44,8 @@
     </span>
     <button
       (click)="handleNextPage()"
-      class="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-blue-600 transition-colors duration-300"
+      [disabled]="currentPage === totalPages - 1"
+      class="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-blue-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
     >
       Próxima Página
     </button>
